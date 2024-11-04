@@ -1,6 +1,6 @@
 # Old-World Adornments
 
-### Datar Tugas👇🏻
+### Daftar Tugas👇🏻
 <details>
 <Summary><b>Tugas 7</b></Summary>
 
