@@ -54,3 +54,117 @@
 
 - **Mengimplementasikan Warna dan Gaya Kustom**: Warna dan gaya kustom diterapkan pada `InfoCard` dan `ItemCard` untuk meningkatkan estetika tampilan. Setiap tombol memiliki warna latar yang berbeda (contoh: hijau untuk "Lihat Daftar Produk", krem untuk "Tambah Produk", dan cokelat muda untuk "Logout") serta efek interaktif dengan `InkWell`. Efek `Snackbar` ditampilkan untuk memberi respons visual saat tombol ditekan, dengan pesan yang sesuai untuk masing-masing tombol.
 </details>
+
+<details>
+<Summary><b>Tugas 8</b></Summary>
+
+### 1. Apa kegunaan `const` di Flutter? Jelaskan apa keuntungan ketika menggunakan `const` pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+
+`const` digunakan untuk membuat objek yang tidak berubah (immutable) dan bersifat konstan di seluruh runtime aplikasi. Ini meningkatkan performa dan efisiensi memori, karena objek const hanya dibuat sekali dan tidak di-render ulang.
+
+**Keuntungan Menggunakan `const`:**
+- **Efisiensi Memori:** Karena objek `const` hanya dibuat sekali, penggunaan memori lebih efisien.
+- **Performa Lebih Baik:** Flutter dapat menghindari render ulang pada objek yang menggunakan `const`, sehingga mengurangi proses rebuild widget tree dan meningkatkan performa aplikasi.
+- **Readability:** Menunjukkan bahwa nilai atau widget tersebut tidak akan diubah, sehingga membantu developer lain untuk memahami bahwa komponen ini bersifat tetap.
+
+**Kapan Menggunakan `const`:**
+- **Untuk widget atau nilai yang tidak akan berubah:** Gunakan `const` pada widget atau nilai yang Anda tahu akan tetap sama sepanjang waktu. Contohnya pada teks statis, ikon, atau widget UI yang tidak dinamis.
+- **Optimasi render tree:** Gunakan `const` untuk widget yang tidak perlu di-rebuild agar Flutter bisa menghindari rendering ulang dan menghemat memori.
+
+**Kapan Tidak Menggunakan `const`:**
+- **Jika objek bersifat dinamis:** Jangan gunakan `const` pada widget atau nilai yang mungkin berubah seiring berjalannya aplikasi, seperti data dari server, input pengguna, atau nilai yang sering diperbarui.
+
+###  2. Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+
+`Column` dan `Row` adalah widget layout di Flutter yang digunakan untuk mengatur tata letak widget secara vertikal dan horizontal. `Column` menempatkan widget dari atas ke bawah, sedangkan `Row` menempatkan widget dari kiri ke kanan. Pada `Column`, `mainAxis` mengacu pada arah vertikal, sementara pada `Row`, `mainAxis` mengacu pada arah horizontal.
+
+- **Column:** Menyusun widget secara vertikal (top-to-bottom).
+- **Row:** Menyusun widget secara horizontal (left-to-right).
+
+**Implementasi `Column`:**
+```dart
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Text("Item 1"),
+    Text("Item 2"),
+  ],
+);
+
+```
+**Implementasi `Row`:**
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    Icon(Icons.home),
+    Icon(Icons.settings),
+  ],
+);
+```
+
+### 3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+
+Pada halaman form tugas ini, elemen input yang digunakan adalah:
+- **TextFormField:** Untuk input teks seperti nama, deskripsi, size, dan warna.
+- **TextFormField (dengan tipe `number`):** Untuk input angka seperti harga dan jumlah barang.
+
+**Elemen Input Lain yang Tidak Digunakan:**
+- **Checkbox:** Digunakan untuk pilihan boolean (true/false) seperti persetujuan atau status.
+- **Switch:** Mirip dengan checkbox, tetapi dengan tampilan slider.
+- **DropdownButton:** Untuk pilihan dengan opsi dropdown.
+- **Radio Button:** Untuk memilih satu opsi dari beberapa pilihan.
+- **Slider:** Untuk input nilai numerik yang bisa diubah dengan menggeser.
+
+### 4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+
+Penggunaan `ThemeData` dengan `ColorScheme` membantu menjaga konsistensi tampilan di seluruh aplikasi.
+
+```dart
+return MaterialApp(
+  title: 'Old-World Adornments',
+  theme: ThemeData(
+     colorScheme: ColorScheme.fromSwatch().copyWith(
+      primary: const Color(0xFFF9F7F2),
+      secondary: const Color.fromARGB(255, 255, 255, 255),
+    ),
+  ),
+  home: MyHomePage(),
+);
+```
+
+- **`primary`:** Mengatur warna utama aplikasi menjadi `Sand Beige` (warna latar belakang atau bar navigasi utama).
+- **`secondary`:** Mengatur warna sekunder menjadi putih untuk elemen-elemen lain yang memerlukan aksen.
+
+**Pengaturan Tema pada Aplikasi yang Dibuat:**
+Dalam aplikasi yang dibuat, saya menggunakan `ThemeData` untuk mengatur skema warna agar konsisten di seluruh aplikasi, seperti warna latar belakang, warna tombol, dan warna teks.
+
+### 5. Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+
+Flutter menyediakan widget `Navigator` dan `MaterialPageRoute` untuk menangani navigasi antar halaman dalam aplikasi.
+
+- **`Navigator.push`**: Digunakan untuk mendorong (push) halaman baru ke dalam stack navigator, sehingga pengguna bisa berpindah ke halaman baru tersebut.
+- **`Navigator.pop`**: Digunakan untuk menghapus (pop) halaman dari stack dan kembali ke halaman sebelumnya.
+- **`Navigator.pushReplacement`**: Digunakan untuk menggantikan halaman saat ini dengan halaman baru, tanpa menambahkan halaman ke dalam stack.
+
+**Contoh Implementasi Navigasi:**
+```dart
+// Navigasi ke halaman baru
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => NewPage()),
+);
+
+// Mengganti halaman saat ini dengan halaman baru (tanpa opsi kembali ke halaman ini)
+Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => NewPage()),
+);
+
+// Kembali ke halaman sebelumnya
+Navigator.pop(context);
+```
+
+**Menggunakan Drawer untuk Navigasi**
+Selain menggunakan `Navigator`, Flutter juga menyediakan widget **Drawer** untuk membuat navigasi yang mudah diakses dari sidebar, terutama jika aplikasi memiliki banyak halaman. Drawer memberikan pengalaman navigasi yang lebih intuitif karena pengguna dapat membuka dan memilih halaman langsung dari menu samping.
+</details>
