@@ -165,6 +165,5 @@ Navigator.pushReplacement(
 Navigator.pop(context);
 ```
 
-**Menggunakan Drawer untuk Navigasi**
 Selain menggunakan `Navigator`, Flutter juga menyediakan widget **Drawer** untuk membuat navigasi yang mudah diakses dari sidebar, terutama jika aplikasi memiliki banyak halaman. Drawer memberikan pengalaman navigasi yang lebih intuitif karena pengguna dapat membuka dan memilih halaman langsung dari menu samping.
 </details>
