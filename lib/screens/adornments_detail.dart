@@ -88,6 +88,24 @@ class AdornmentsDetailPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFD1AEA4),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "Back to Adornments List",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Georgia',
+                  ),
+                ),
+              ),
             ],
           ),
         ),
