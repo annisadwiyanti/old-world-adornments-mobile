@@ -311,4 +311,3 @@ CookieRequest dibagikan menggunakan `Provider` agar semua widget dapat mengakses
 1. Menambahkan endpoint Django untuk mengembalikan data sesuai pengguna yang login.
 2. Memodifikasi request GET di Flutter agar hanya mengambil data dari pengguna tertentu.
 </details>
->>>>>>> df6e022 (tugas 9 done)
