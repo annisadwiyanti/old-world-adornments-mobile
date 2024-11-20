@@ -8,10 +8,10 @@ class MyHomePage extends StatelessWidget {
   final String className = 'PBP B';
 
   // Daftar item dengan warna khusus untuk setiap tombol
-  final List<AdornmentsHomepageItem> items = [
-    AdornmentsHomepageItem("View Adornments List", Icons.list, const Color(0xFF121F16)),
-    AdornmentsHomepageItem("Add Adornments", Icons.add, const Color(0xFFD1AEA4)),
-    AdornmentsHomepageItem("Logout", Icons.logout, const Color(0xFFA0825B)),
+  final List<AdornmentsHomepage> items = [
+    AdornmentsHomepage("View Adornments List", Icons.list, const Color(0xFF121F16)),
+    AdornmentsHomepage("Add Adornments", Icons.add, const Color(0xFFD1AEA4)),
+    AdornmentsHomepage("Logout", Icons.logout, const Color(0xFFA0825B)),
   ];
 
   MyHomePage({super.key});
@@ -20,11 +20,11 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
         title: const Text(
           'Old-World Adornments',
           style: TextStyle(
-            color: Colors.black,
+            color: Color.fromARGB(255, 255, 255, 255),
             fontWeight: FontWeight.bold,
           ),
         ),

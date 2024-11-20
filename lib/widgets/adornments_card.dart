@@ -1,40 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:old_world_adornments/screens/adornmentsentry_form.dart';
+import 'package:old_world_adornments/screens/list_adornmentsentry.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:old_world_adornments/screens/login.dart';
 
-class AdornmentsHomepageItem {
+class AdornmentsHomepage {
   final String name;
   final IconData icon;
   final Color color;
 
-  AdornmentsHomepageItem(this.name, this.icon, this.color);
+  AdornmentsHomepage(this.name, this.icon, this.color);
 }
 
 class AdornmentsCard extends StatelessWidget {
-  final AdornmentsHomepageItem item;
-
-  const AdornmentsCard(this.item, {super.key});
+  final AdornmentsHomepage adornments;
+  const AdornmentsCard(this.adornments, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Material(
-      color: item.color, // Menggunakan warna item yang ditentukan
+      color: adornments.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("You tapped ${item.name}!")),
-            );
-
-          // Pastikan nama item sesuai dengan nama dalam daftar item
-          if (item.name == "Tambah Produk" || item.name == "Add Product" || item.name == "Add Adornments") {
+        onTap: () async {
+          if (adornments.name == "Add Adornments") {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text("You pressed the ${adornments.name} button!"),
+                ),
+              );
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const AdornmentsEntryFormPage(),
-              ),
+                  builder: (context) => const AdornmentsEntryFormPage()),
             );
+          } else if (adornments.name == "View Adornments List") {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text("You pressed the ${adornments.name} button!"),
+                ),
+              );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AdornmentsEntryPage()),
+            );
+          } else if (adornments.name == "Logout") {
+            final response = await request.logout(
+              "http://localhost:8000/auth/logout/",
+            );
+            String message = response["message"];
+            if (context.mounted) {
+              if (response['status']) {
+                String uname = response["username"];
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("$message Goodbye, $uname!"),
+                ));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(message),
+                  ),
+                );
+              }
+            }
           }
         },
         child: Container(
@@ -44,15 +82,18 @@ class AdornmentsCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
+                  adornments.icon,
+                  color: const Color.fromARGB(255, 255, 255, 255), // Warna ikon
+                  size: 35.0,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  item.name,
+                  adornments.name,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255), // Warna teks
+                    fontFamily: 'Georgia', // Gaya vintage
+                  ),
                 ),
               ],
             ),
